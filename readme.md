@@ -15,7 +15,7 @@ def hello():
     return f"IP default: {ip_default} IP X for: {ip_x_for}"
 ```
 - proxy: nginx que repassa a porta 5000 do webapp para a porta 80 desse container.
-```json
+```conf
 upstream webappproxied {
     server webapp:5000;
 }
