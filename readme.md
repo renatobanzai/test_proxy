@@ -14,9 +14,31 @@ def hello():
     ip_default = request.remote_addr
     return f"IP default: {ip_default} IP X for: {ip_x_for}"
 ```
-- proxy: repassa a porta 5000 do webapp para a porta 80 desse container.
+- proxy: nginx que repassa a porta 5000 do webapp para a porta 80 desse container.
+```json
+upstream webappproxied {
+    server webapp:5000;
+}
+
+server {
+
+    listen 80;
+
+    location / {
+        proxy_pass http://webappproxied;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_redirect off;
+    }
+
+}
+```
 
 - testapp: para fazer curl via bash e saber dos comportamentos.
+```bash
+curl http://proxy
+curl http://webapp:5000
+```
 
 ### Teste a partir do testapp:
 
