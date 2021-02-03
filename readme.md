@@ -17,3 +17,7 @@ def hello():
 - proxy: repassa a porta 5000 do webapp para a porta 80 desse container.
 
 - testapp: para fazer curl via bash e saber dos comportamentos.
+
+### Teste a partir do testapp:
+
+![picture](https://raw.githubusercontent.com/renatobanzai/test_proxy/master/img/test_proxy.gif)
