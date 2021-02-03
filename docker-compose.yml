@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  webapp:
+    build:
+      context: ./webapp
+      dockerfile: Dockerfile
+    hostname: webapp
+    ports:
+      - 5000:5000
+    command:  --forwarded-allow-ips="*" --bind 0.0.0.0:5000 wsgi:app
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    hostname: proxy
+    ports:
+        - 1337:80
+    depends_on:
+      - webapp
+  testapp:
+    build:
+      context: ./testapp
+      dockerfile: Dockerfile
+    hostname: testapp
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    depends_on:
+        - webapp
+        - proxy
